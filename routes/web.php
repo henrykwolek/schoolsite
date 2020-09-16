@@ -33,4 +33,16 @@ Route::middleware('auth')->group(function () {
   Route::post('redakcja/posty/nowy/zapisz', 'PostController@store')
     ->name('admin-post-store')
     ->middleware('is_admin');
+
+  Route::get('redakcja/posty/edytuj/{post}', 'PostController@edit')
+    ->name('admin-post-edit')
+    ->middleware('is_admin');
+
+  Route::post('redakcja/posty/edytuj/{post}/zapisz', 'PostController@update')
+    ->name('admin-post-store')
+    ->middleware('is_admin');
+
+  Route::delete('redakcja/posty/edytuj/{post}/usun', 'PostController@destroy')
+    ->name('admin-post-destroy')
+    ->middleware('is_admin');
 });

@@ -3,24 +3,46 @@
   <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 p-5 md:pb-5">
     <div class="flex w-full bg-teal-lighter">
       <div class="w-full bg-white rounded shadow-lg p-8 m-4">
-        <p class="block w-full text-center text-grey-darkest text-xl mb-6">
-          Nowy post
-        </p>
+        <div
+          class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 mb-3 shadow-md"
+          role="alert"
+        >
+          <div class="flex">
+            <div class="py-1">
+              <svg
+                class="fill-current h-6 w-6 text-teal-500 mr-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
+                />
+              </svg>
+            </div>
+            <div>
+              <p class="font-bold">Edytowanie istniejącego ogłoszenia</p>
+              <p class="text-sm">
+                Prosimy, aby wszystkie zmiany były przemyślane i zamierzone.
+              </p>
+            </div>
+          </div>
+        </div>
         <form
           class="mb-4"
-          action="{{route('admin-post-store')}}"
+          action="{{route('admin-post-store', $post)}}"
           method="post"
           enctype="multipart/form-data"
         >
-        @csrf
+          @csrf
           <div class="flex flex-col mb-4">
             <label class="mb-2 font-bold text-lg text-grey-darkest" for="title"
-              >Tytuł</label
+              >Nowy tytuł</label
             >
             <input
               class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="title"
               name="title"
+              value="{{$post->title}}"
               type="text"
               placeholder="Tytuł ogłoszenia"
             />
@@ -34,7 +56,7 @@
             <label
               class="mb-2 font-bold text-lg text-grey-darkest"
               for="post_image"
-              >Zdjęcie</label
+              >Nowe zdjęcie</label
             >
             <input
               class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -48,30 +70,19 @@
             </p>
             @enderror
           </div>
-          <div class="flex flex-col mb-4">
-            <label
-              class="mb-2 font-bold text-lg text-grey-darkest"
-              for="category"
-              >Kategoria</label
-            >
-            <select
-              class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="category"
-              name="category"
-            >
-              <option value="post">Post (strona główna)</option>
-              <option value="inne">Inna kategoria</option>
-            </select>
-            @error('password')
-            <p class="text-red-500 text-s mt-4">
-              {{ $category }}
-            </p>
-            @enderror
+          <div class="max-w-sm rounded overflow-hidden shadow-lg mb-2">
+            <a
+              target="blank"
+              href="{{asset($post->post_image)}}"
+              class="hover:opacity-75"
+              ><img class="w-full" src="{{asset($post->post_image)}}" alt=""
+            /></a>
+            <div class="px-4 py-2">
+              <div class="font-bold text-xl mb-2">Obecne zdjęcie</div>
+            </div>
           </div>
           <div class="flex flex-col mb-6">
-            <label
-              class="mb-2 font-bold text-lg text-grey-darkest"
-              for="body"
+            <label class="mb-2 font-bold text-lg text-grey-darkest" for="body"
               >Treść</label
             >
             <textarea
@@ -79,7 +90,7 @@
               class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               name="body"
               id="body"
-            ></textarea>
+            >{{$post->body}}</textarea>
             @error('body')
             <p class="text-red-500 text-s mt-4">
               {{ $message }}
@@ -90,7 +101,7 @@
             class="bg-blue-500 hover:bg-blue-700 text-white content-center font-bold py-2 mx-auto px-4 rounded"
             type="submit"
           >
-            Zapisz post
+            Zapisz zmiany
           </button>
         </form>
       </div>

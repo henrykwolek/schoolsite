@@ -14,6 +14,7 @@ class PostController extends Controller
    */
   public function adminIndex(Post $posts)
   {
+    $posts = Post::orderBy('id', 'DESC')->get();
     return view('admin.posts.index', [
       'posts' => $posts,
     ]);
@@ -35,9 +36,27 @@ class PostController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store()
   {
-    //
+    $inputs = request()->validate([
+      'title' => ['required', 'max:255'],
+      'post_image' => ['image:jpeg,jpg,png,webp,jfif'],
+      'body' => ['required'],
+      'category' => ['required'],
+    ]);
+
+    if (request('post_image')) {
+      $inputs['post_image'] = request('post_image')->store('images');
+    }
+
+    auth()
+      ->user()
+      ->posts()
+      ->create($inputs);
+
+    return redirect()
+      ->route('admin-post-index')
+      ->with('success', 'Post został zapisany.');
   }
 
   /**
@@ -59,7 +78,9 @@ class PostController extends Controller
    */
   public function edit(Post $post)
   {
-    //
+    return view('admin.posts.edit', [
+      'post' => $post,
+    ]);
   }
 
   /**
@@ -69,9 +90,30 @@ class PostController extends Controller
    * @param  \App\Post  $post
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Post $post)
+  public function update(Post $post)
   {
-    //
+    $inputs = request()->validate([
+      'title' => ['required', 'max:255'],
+      'post_image' => ['image:jpeg,jpg,png,webp,jfif'],
+      'body' => ['required'],
+    ]);
+
+    if (request('post_image')) {
+      $inputs['post_image'] = request('post_image')->store('images');
+      $post->post_image = $inputs['post_image'];
+    }
+
+    $post->title = $inputs['title'];
+    $post->body = $inputs['body'];
+
+    auth()
+      ->user()
+      ->posts()
+      ->save($post);
+
+    return redirect()
+      ->route('admin-post-index')
+      ->with('success', 'Zmiany zostały zapisane.');
   }
 
   /**
@@ -82,6 +124,9 @@ class PostController extends Controller
    */
   public function destroy(Post $post)
   {
-    //
+    $post->delete();
+    return redirect()
+      ->route('admin-post-index')
+      ->with('danger', 'Usunięto ogłoszenie.');
   }
 }

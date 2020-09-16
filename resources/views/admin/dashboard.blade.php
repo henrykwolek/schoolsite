@@ -22,7 +22,7 @@
                     Łączna liczba postów
                   </h5>
                   <h3 class="font-bold text-3xl">
-                    86
+                    {{App\Post::count()}}
                     <span class="text-green-500"
                       ><i class="fas fa-caret-up"></i
                     ></span>

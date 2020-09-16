@@ -83,12 +83,40 @@
       Wszystkie posty
     </h1>
 
+    @if ($message = Session::get('success'))
+    <div class="p-5">
+      <div role="alert">
+        <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2">
+          Powiadomienie
+        </div>
+        <div
+          class="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-black-700"
+        >
+          <p>{{ $message }}</p>
+        </div>
+      </div>
+    </div>
+    @endif
+    @if ($message = Session::get('danger'))
+    <div class="p-5">
+      <div role="alert">
+        <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+          Powiadomienie
+        </div>
+        <div
+          class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-black-700"
+        >
+          <p>{{ $message }}</p>
+        </div>
+      </div>
+    </div>
+    @endif
+
     <a href="{{route('admin-post-create')}}">
       <button
-        class="bg-blue-500 hover:bg-blue-600 text-gray-800 font-bold py-2 mt-2 ml-2 mb-3 px-4 rounded inline-flex items-center"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold ml-2 mt-2 mb-2 py-2 px-4 rounded"
       >
-        <i class="fas fa-plus-square"></i>
-        <span>Nowy post</span>
+        Nowy post
       </button>
     </a>
 
@@ -104,26 +132,49 @@
             <th data-priority="1">#</th>
             <th data-priority="2">Tytuł</th>
             <th data-priority="3">Treść</th>
-            <th data-priority="4">Zdjęcie</th>
+            <th data-priority="4">Utworzono</th>
             <th data-priority="5">Autor</th>
             <th data-priority="6">Usuń</th>
           </tr>
         </thead>
         <tbody>
+          @foreach ($posts as $post)
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="text-center">{{$post->id}}</td>
+            <td class="text-center">
+              <a
+                href="{{route('admin-post-edit', $post)}}"
+                class="no-underline hover:underline text-blue-500"
+                >{{$post->title}}</a
+              >
+            </td>
+            <td class="text-center">
+              {{Str::limit($post->body, '150', '...')}}
+            </td>
+            <td class="text-center">
+              {{$post->created_at->diffForHumans()}}
+            </td>
+            <td class="text-center">{{$post->user->name}}</td>
+            <td class="text-center">
+              <form action="{{route('admin-post-destroy', $post)}}" method="post">
+                @csrf 
+                @method('DELETE')
+                <button
+                  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  type="submit"
+                >
+                  Usuń post
+                </button>
+              </form>
+            </td>
           </tr>
+          @endforeach
         </tbody>
         <tfoot>
           <th data-priority="1">#</th>
           <th data-priority="2">Tytuł</th>
           <th data-priority="3">Treść</th>
-          <th data-priority="4">Zdjęcie</th>
+          <th data-priority="4">Utworzono</th>
           <th data-priority="5">Autor</th>
           <th data-priority="6">Usuń</th>
         </tfoot>
