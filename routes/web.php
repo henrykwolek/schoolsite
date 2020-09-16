@@ -39,10 +39,30 @@ Route::middleware('auth')->group(function () {
     ->middleware('is_admin');
 
   Route::post('redakcja/posty/edytuj/{post}/zapisz', 'PostController@update')
-    ->name('admin-post-store')
+    ->name('admin-post-update')
     ->middleware('is_admin');
 
   Route::delete('redakcja/posty/edytuj/{post}/usun', 'PostController@destroy')
     ->name('admin-post-destroy')
     ->middleware('is_admin');
+
+  Route::get('redakcja/posty/detail/{post}', 'PostController@show')
+    ->name('admin-post-detail')
+    ->middleware('is_admin');
+
+  Route::get('redakcja/profil/{user}', 'UsersController@show')
+    ->name('user-show-profile')
+    ->middleware('is_admin');
+
+  Route::post(
+    'redakcja/profil/{user}/changepassword',
+    'UsersController@changePassword'
+  )
+    ->name('user-change-password')
+    ->middleware('is_admin');
+
+  Route::get(
+    'logout',
+    '\App\Http\Controllers\Auth\LoginController@logout'
+  )->name('user.logout');
 });

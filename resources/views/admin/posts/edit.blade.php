@@ -29,7 +29,7 @@
         </div>
         <form
           class="mb-4"
-          action="{{route('admin-post-store', $post)}}"
+          action="{{route('admin-post-store')}}"
           method="post"
           enctype="multipart/form-data"
         >
@@ -39,7 +39,7 @@
               >Nowy tytuł</label
             >
             <input
-              class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 shadow rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="title"
               name="title"
               value="{{$post->title}}"
@@ -59,7 +59,7 @@
               >Nowe zdjęcie</label
             >
             <input
-              class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              class="appearance-none block w-full shadow bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               id="post_image"
               name="post_image"
               type="file"
@@ -87,7 +87,7 @@
             >
             <textarea
               placeholder="Opis"
-              class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              class="appearance-none shadow block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               name="body"
               id="body"
             >{{$post->body}}</textarea>
@@ -98,7 +98,7 @@
             @enderror
           </div>
           <button
-            class="bg-blue-500 hover:bg-blue-700 text-white content-center font-bold py-2 mx-auto px-4 rounded"
+            class="bg-blue-500 hover:bg-blue-700 shadow text-white content-center font-bold py-2 mx-auto px-4 rounded"
             type="submit"
           >
             Zapisz zmiany

@@ -97,6 +97,20 @@
       </div>
     </div>
     @endif
+    @if ($message = Session::get('warning'))
+    <div class="p-5">
+      <div role="alert">
+        <div class="bg-yellow-500 text-white font-bold rounded-t px-4 py-2">
+          Powiadomienie
+        </div>
+        <div
+          class="border border-t-0 border-yellow-400 rounded-b bg-yellow-100 px-4 py-3 text-black-700"
+        >
+          <p>{{ $message }}</p>
+        </div>
+      </div>
+    </div>
+    @endif
     @if ($message = Session::get('danger'))
     <div class="p-5">
       <div role="alert">
@@ -134,7 +148,7 @@
             <th data-priority="3">Treść</th>
             <th data-priority="4">Utworzono</th>
             <th data-priority="5">Autor</th>
-            <th data-priority="6">Usuń</th>
+            <th data-priority="6">Akcje</th>
           </tr>
         </thead>
         <tbody>
@@ -143,7 +157,11 @@
             <td class="text-center">{{$post->id}}</td>
             <td class="text-center">
               <a
-                href="{{route('admin-post-edit', $post)}}"
+                @if (Auth::user()->id == $post->user->id)
+                  href="{{route('admin-post-edit', $post)}}"
+                @else
+                  href="{{route('admin-post-detail', $post)}}"
+                @endif
                 class="no-underline hover:underline text-blue-500"
                 >{{$post->title}}</a
               >
@@ -156,16 +174,20 @@
             </td>
             <td class="text-center">{{$post->user->name}}</td>
             <td class="text-center">
-              <form action="{{route('admin-post-destroy', $post)}}" method="post">
-                @csrf 
-                @method('DELETE')
-                <button
-                  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                  type="submit"
-                >
-                  Usuń post
-                </button>
-              </form>
+              @if ($post->user->id == Auth::user()->id)
+                <form action="{{route('admin-post-destroy', $post)}}" method="post">
+                  @csrf 
+                  @method('DELETE')
+                  <button
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    type="submit"
+                  >
+                    Usuń post
+                  </button>
+                </form>
+              @else
+                <p class="text-red-500 font-bold">Brak dostępnych akcji</p>
+              @endif
             </td>
           </tr>
           @endforeach
@@ -176,7 +198,7 @@
           <th data-priority="3">Treść</th>
           <th data-priority="4">Utworzono</th>
           <th data-priority="5">Autor</th>
-          <th data-priority="6">Usuń</th>
+          <th data-priority="6">Akcje</th>
         </tfoot>
       </table>
     </div>

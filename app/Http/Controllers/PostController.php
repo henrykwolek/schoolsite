@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -67,7 +68,9 @@ class PostController extends Controller
    */
   public function show(Post $post)
   {
-    //
+    return view('admin.posts.detail', [
+      'post' => $post,
+    ]);
   }
 
   /**
@@ -78,9 +81,15 @@ class PostController extends Controller
    */
   public function edit(Post $post)
   {
-    return view('admin.posts.edit', [
-      'post' => $post,
-    ]);
+    if ($post->user->id == Auth::user()->id) {
+      return view('admin.posts.edit', [
+        'post' => $post,
+      ]);
+    } else {
+      return redirect()
+        ->route('admin-post-index')
+        ->with('warning', 'Nie możesz tego zrobić');
+    }
   }
 
   /**
@@ -124,9 +133,11 @@ class PostController extends Controller
    */
   public function destroy(Post $post)
   {
-    $post->delete();
-    return redirect()
-      ->route('admin-post-index')
-      ->with('danger', 'Usunięto ogłoszenie.');
+    if ($post->user->id == Auth::user()->id) {
+      $post->delete();
+      return redirect()
+        ->route('admin-post-index')
+        ->with('danger', 'Usunięto ogłoszenie.');
+    }
   }
 }

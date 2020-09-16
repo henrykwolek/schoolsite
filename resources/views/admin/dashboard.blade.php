@@ -4,6 +4,35 @@
         <div class="bg-blue-800 p-2 shadow text-xl text-white">
           <h3 class="font-bold pl-2">Analiza</h3>
         </div>
+        @if ($message = Session::get('success'))
+        <div class="p-5">
+          <div role="alert">
+            <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2">
+              Powiadomienie
+            </div>
+            <div
+              class="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-black-700"
+            >
+              <p>{{$message}}</p>
+            </div>
+          </div>
+        </div>
+        @endif
+        @if ($message = Session::get('danger'))
+        <div class="p-5">
+          <div role="alert">
+            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+              Powiadomienie
+            </div>
+            <div
+              class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-black-700"
+            >
+              <p>{{$message}}</p>
+            </div>
+          </div>
+        </div>
+        @endif
+        
 
         <div class="flex flex-wrap">
           <div class="w-full md:w-1/2 xl:w-1/3 p-3">
@@ -48,7 +77,7 @@
                     Wszyscy użytkownicy
                   </h5>
                   <h3 class="font-bold text-3xl">
-                    249
+                    {{App\User::count()}}
                     <span class="text-orange-500"
                       ><i class="fas fa-exchange-alt"></i
                     ></span>
@@ -74,7 +103,7 @@
                     Nowi użytkownicy
                   </h5>
                   <h3 class="font-bold text-3xl">
-                    2
+                    {{App\User::whereDate('created_at', Carbon\Carbon::today())->count()}}
                     <span class="text-yellow-600"
                       ><i class="fas fa-caret-up"></i
                     ></span>

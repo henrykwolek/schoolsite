@@ -86,9 +86,9 @@
                   class="dropdownlist absolute bg-gray-900 text-white right-0 mt-3 p-3 overflow-auto z-30 invisible"
                 >
                   <a
-                    href="#"
+                    href="{{route('user-show-profile', Auth::user())}}"
                     class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"
-                    ><i class="fa fa-user fa-fw"></i> Profile</a
+                    ><i class="fa fa-user fa-fw"></i> Profil</a
                   >
                   <a
                     href="#"
@@ -97,9 +97,9 @@
                   >
                   <div class="border border-gray-800"></div>
                   <a
-                    href="#"
+                    href="{{route('user.logout')}}"
                     class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"
-                    ><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a
+                    ><i class="fas fa-sign-out-alt fa-fw"></i> Wyloguj się</a
                   >
                 </div>
               </div>

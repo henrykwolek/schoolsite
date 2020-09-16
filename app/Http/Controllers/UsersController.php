@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Rules\MatchOldPassword;
+use Illuminate\Support\Facades\Hash;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -26,18 +29,15 @@ class UsersController extends Controller
    */
   public function show(User $user)
   {
-    //
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  \App\User  $user
-   * @return \Illuminate\Http\Response
-   */
-  public function edit(User $user)
-  {
-    //
+    if ($user->id == Auth::user()->id) {
+      return view('admin.users.profile', [
+        'user' => $user,
+      ]);
+    } else {
+      return redirect()
+        ->route('admin-index')
+        ->with('danger', 'Nie możesz tego zrobić.');
+    }
   }
 
   /**
@@ -50,6 +50,23 @@ class UsersController extends Controller
   public function update(Request $request, User $user)
   {
     //
+  }
+
+  public function changePassword(Request $request, User $user)
+  {
+    $request->validate([
+      'current_password' => ['required', new MatchOldPassword()],
+      'new_password' => ['required'],
+      'new_confirm_password' => ['same:new_password'],
+    ]);
+
+    User::find(auth()->user()->id)->update([
+      'password' => Hash::make($request->new_password),
+    ]);
+
+    return redirect()
+      ->route('admin-index')
+      ->with('success', 'Twoje hasło zostało zmienione.');
   }
 
   /**
