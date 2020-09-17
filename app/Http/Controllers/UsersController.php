@@ -47,15 +47,36 @@ class UsersController extends Controller
    * @param  \App\User  $user
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, User $user)
+  public function updateProfile(Request $request, User $user)
   {
-    //
+    if (
+      $request->validate([
+        'current_password' => ['required', new MatchOldPassword()],
+      ])
+    ) {
+      $inputs = request()->validate([
+        'name' => ['required', 'string', 'max:255'],
+        'email' => [
+          'required',
+          'string',
+          'email',
+          'max:255',
+          'unique:users,email,' . $user->id,
+        ],
+      ]);
+
+      $user->update($inputs);
+
+      return redirect()
+        ->route('admin-index')
+        ->with('success', 'Twoje informacje został zaktualizowane.');
+    }
   }
 
   public function changePassword(Request $request, User $user)
   {
     $request->validate([
-      'current_password' => ['required', new MatchOldPassword()],
+      'current_password_change' => ['required', new MatchOldPassword()],
       'new_password' => ['required'],
       'new_confirm_password' => ['same:new_password'],
     ]);

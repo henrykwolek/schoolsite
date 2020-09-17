@@ -35,32 +35,29 @@
         
 
         <div class="flex flex-wrap">
+
           <div class="w-full md:w-1/2 xl:w-1/3 p-3">
             <!--Metric Card-->
             <div
-              class="bg-green-100 border-b-4 border-green-600 rounded-lg shadow-lg p-5"
+              class="bg-blue-100 border-b-4 border-blue-500 rounded-lg shadow-lg p-5"
             >
               <div class="flex flex-row items-center">
                 <div class="flex-shrink pr-4">
-                  <div class="rounded-full p-5 bg-green-600">
-                    <i class="fa fa-mail-bulk fa-2x fa-inverse"></i>
+                  <div class="rounded-full p-5 bg-blue-600">
+                    <i class="fas fa-server fa-2x fa-inverse"></i>
                   </div>
                 </div>
                 <div class="flex-1 text-right md:text-center">
                   <h5 class="font-bold uppercase text-gray-600">
                     Łączna liczba postów
                   </h5>
-                  <h3 class="font-bold text-3xl">
-                    {{App\Post::count()}}
-                    <span class="text-green-500"
-                      ><i class="fas fa-caret-up"></i
-                    ></span>
-                  </h3>
+                  <h3 class="font-bold text-3xl">{{App\Post::count()}}</h3>
                 </div>
               </div>
             </div>
             <!--/Metric Card-->
           </div>
+  
           <div class="w-full md:w-1/2 xl:w-1/3 p-3">
             <!--Metric Card-->
             <div
@@ -79,7 +76,55 @@
                   <h3 class="font-bold text-3xl">
                     {{App\User::count()}}
                     <span class="text-orange-500"
-                      ><i class="fas fa-exchange-alt"></i
+                      ><i class="fas fa-layer-group"></i></span>
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <!--/Metric Card-->
+          </div>
+          
+          <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+            <!--Metric Card-->
+            <div
+              class="bg-indigo-100 border-b-4 border-indigo-500 rounded-lg shadow-lg p-5"
+            >
+              <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-4">
+                  <div class="rounded-full p-5 bg-indigo-600">
+                    <i class="fas fa-tasks fa-2x fa-inverse"></i>
+                  </div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                  <h5 class="font-bold uppercase text-gray-600">
+                    Zadania do zrobienia
+                  </h5>
+                  <h3 class="font-bold text-3xl">7 zadań</h3>
+                </div>
+              </div>
+            </div>
+            <!--/Metric Card-->
+          </div>
+
+          <div class="w-full md:w-1/2 xl:w-1/3 p-3">
+            <!--Metric Card-->
+            <div
+              class="bg-green-100 border-b-4 border-green-600 rounded-lg shadow-lg p-5"
+            >
+              <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-4">
+                  <div class="rounded-full p-5 bg-green-600">
+                    <i class="fa fa-mail-bulk fa-2x fa-inverse"></i>
+                  </div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                  <h5 class="font-bold uppercase text-gray-600">
+                    Posty dodane dzisiaj
+                  </h5>
+                  <h3 class="font-bold text-3xl">
+                    {{App\Post::whereDate('created_at', Carbon\Carbon::today())->count()}}
+                    <span class="text-green-500"
+                      ><i class="fas fa-caret-up"></i
                     ></span>
                   </h3>
                 </div>
@@ -87,6 +132,7 @@
             </div>
             <!--/Metric Card-->
           </div>
+
           <div class="w-full md:w-1/2 xl:w-1/3 p-3">
             <!--Metric Card-->
             <div
@@ -108,48 +154,6 @@
                       ><i class="fas fa-caret-up"></i
                     ></span>
                   </h3>
-                </div>
-              </div>
-            </div>
-            <!--/Metric Card-->
-          </div>
-          <div class="w-full md:w-1/2 xl:w-1/3 p-3">
-            <!--Metric Card-->
-            <div
-              class="bg-blue-100 border-b-4 border-blue-500 rounded-lg shadow-lg p-5"
-            >
-              <div class="flex flex-row items-center">
-                <div class="flex-shrink pr-4">
-                  <div class="rounded-full p-5 bg-blue-600">
-                    <i class="fas fa-server fa-2x fa-inverse"></i>
-                  </div>
-                </div>
-                <div class="flex-1 text-right md:text-center">
-                  <h5 class="font-bold uppercase text-gray-600">
-                    Działanie strony
-                  </h5>
-                  <h3 class="font-bold text-3xl">152 days</h3>
-                </div>
-              </div>
-            </div>
-            <!--/Metric Card-->
-          </div>
-          <div class="w-full md:w-1/2 xl:w-1/3 p-3">
-            <!--Metric Card-->
-            <div
-              class="bg-indigo-100 border-b-4 border-indigo-500 rounded-lg shadow-lg p-5"
-            >
-              <div class="flex flex-row items-center">
-                <div class="flex-shrink pr-4">
-                  <div class="rounded-full p-5 bg-indigo-600">
-                    <i class="fas fa-tasks fa-2x fa-inverse"></i>
-                  </div>
-                </div>
-                <div class="flex-1 text-right md:text-center">
-                  <h5 class="font-bold uppercase text-gray-600">
-                    Zadania do zrobienia
-                  </h5>
-                  <h3 class="font-bold text-3xl">7 zadań</h3>
                 </div>
               </div>
             </div>

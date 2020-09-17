@@ -30,7 +30,7 @@
 
         <div class="max-w-sm w-full lg:max-w-full lg:flex">
           <img
-            src="https://lh3.googleusercontent.com/proxy/Qak7QQ2GrXxp3m1L4RcQpPKyEDwCtL2yORibgQJscSTIkM1DjkexauD4UOjZh2vsN-f20OLeqvlJoanhKLYFtyk9USUsVvuKJSqA_b23H5ywC_h-C4mwQse6K4zbMTUkZ-6DkuZ55K0Af5Ht2PxOhiitz9bnILjKAgBSCw"
+            src="https://lh3.googleusercontent.com/proxy/fTq7RvDYdHPFQO2RuPMzqEwanwQRQXTLPE7WcNh27rMtVEPKJkUvG9Bhb2nYJyditRWp8azdtQhSyvGMQiAQQDaVqSG6X52fE_C5DcXuc6Vpz9Th1wpYBhS77ZYVsPHMU7wX6D_9xIeK5DD7gVvlUMUVFGX7FQGu75QNGA"
             style="max-height: 300px;"
             class="lg:h-auto flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
             style="background-image: ;"
@@ -40,9 +40,11 @@
             class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
           >
             <div class="mb-3">
-              <form class="w-full max-w-lg">
+              <form method="post" action="{{route('user-update-profile', Auth::user())}}" class="w-full max-w-lg">
+                @csrf
+                @method('PUT')
                 <div class="flex flex-wrap -mx-3 mb-2">
-                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div class="w-full md:w-1/2 px-3 mb-0 md:mb-0">
                         <label
                           class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                           for="grid-first-name"
@@ -73,8 +75,8 @@
                         />
                       </div>
                 </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full px-3 mb-6 md:mb-0">
+                <div class="flex flex-wrap -mx-3 mb-0">
+                    <div class="w-full px-3 mb-0 md:mb-0">
                         <label
                           class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                           for="grid-first-name"
@@ -83,11 +85,18 @@
                         </label>
                         <input
                           class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-green-500"
-                          id="password"
+                          id="current_password"
+                          name="current_password"
                           type="password"
                           placeholder="Hasło dla potwierdzenia"
                         />
                       </div>
+
+                      @error('current_password')
+                        <p class="text-red-500 text-s mx-4 my-2">
+                          {{ $message }}
+                        </p>
+                      @enderror
                 </div>
                 <button class="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
                     Zapisz miany
@@ -112,8 +121,9 @@
               class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
             >
               <div class="mb-3">
-                <form action="{{route('user-change-password', $user)}}" class="w-full max-w-lg" method="post">
+                <form action="{{route('user-change-password', Auth::user())}}" class="w-full max-w-lg" method="post">
                     @csrf
+                    @method('PUT')
                   <div class="flex flex-wrap -mx-3 mb-2">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <label
@@ -145,6 +155,11 @@
                           placeholder="Powtórz nowe hasło"
                         />
                       </div>
+                      @error('new_password')
+                        <p class="text-red-500 text-s mx-4 my-2">
+                          {{ $message }}
+                        </p>
+                      @enderror
                 </div>
                     <div class="w-full md:mb-0">
                         <label
@@ -155,17 +170,17 @@
                         </label>
                         <input
                           class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:border-green-500"
-                          id="current_password"
-                          name="current_password"
+                          id="current_password_change"
+                          name="current_password_change"
                           type="password"
                           placeholder="Obecne hasło"
                         />
                       </div>
-                      @foreach ($errors->all() as $error)
-
-                      <p class="text-red-500">{{ $error }}</p>
-
-                   @endforeach 
+                      @error('current_password_change')
+                        <p class="text-red-500 text-s mx-4 my-2">
+                          {{ $message }}
+                        </p>
+                      @enderror 
                   <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
                       Zmień hasło
                   </button>

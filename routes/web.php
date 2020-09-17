@@ -54,11 +54,18 @@ Route::middleware('auth')->group(function () {
     ->name('user-show-profile')
     ->middleware('is_admin');
 
-  Route::post(
+  Route::put(
     'redakcja/profil/{user}/changepassword',
     'UsersController@changePassword'
   )
     ->name('user-change-password')
+    ->middleware('is_admin');
+
+  Route::put(
+    'redakcja/profil/{user}/updateprofile',
+    'UsersController@updateProfile'
+  )
+    ->name('user-update-profile')
     ->middleware('is_admin');
 
   Route::get(
