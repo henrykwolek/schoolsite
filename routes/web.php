@@ -68,6 +68,14 @@ Route::middleware('auth')->group(function () {
     ->name('user-update-profile')
     ->middleware('is_admin');
 
+  Route::get('redakcja/zadania', 'TaskController@index')
+    ->name('task-index')
+    ->middleware('is_admin');
+
+  Route::post('redakcja/zadania/nowe', 'TaskController@store')
+    ->name('task-create')
+    ->middleware('is_admin');
+
   Route::get(
     'logout',
     '\App\Http\Controllers\Auth\LoginController@logout'

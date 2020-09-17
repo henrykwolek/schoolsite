@@ -146,10 +146,10 @@
                 </div>
                 <div class="flex-1 text-right md:text-center">
                   <h5 class="font-bold uppercase text-gray-600">
-                    Nowi użytkownicy
+                    Nowi użytkownicy (ostatni tydzień)
                   </h5>
                   <h3 class="font-bold text-3xl">
-                    {{App\User::whereDate('created_at', Carbon\Carbon::today())->count()}}
+                    {{App\User::whereBetween('created_at', [Carbon\Carbon::now()->subWeek(), Carbon\Carbon::now()])->count()}}
                     <span class="text-yellow-600"
                       ><i class="fas fa-caret-up"></i
                     ></span>

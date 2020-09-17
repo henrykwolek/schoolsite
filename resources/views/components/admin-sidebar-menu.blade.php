@@ -34,7 +34,7 @@
           </li>
           <li class="mr-3 flex-1">
             <a
-              href="#"
+              href="{{route('task-index')}}"
               class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500"
             >
               <i class="fas fa-clipboard-check pr-0 md:pr-3"></i
