@@ -40,5 +40,9 @@ class TaskController extends Controller
       'update tasks set completed_by = ?, is_completed = ? where id = ?',
       [Auth::user()->name, 'yes', $task->id]
     );
+
+    return redirect()
+      ->route('task-index')
+      ->with('info', 'Zadanie zostało oznaczone jako wykonane.');
   }
 }

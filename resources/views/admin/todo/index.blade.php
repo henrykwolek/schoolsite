@@ -70,6 +70,20 @@
       </div>
     </div>
     @endif
+    @if ($message = Session::get('info'))
+    <div class="p-5">
+        <div role="alert">
+          <div class="bg-blue-500 text-white font-bold rounded-t px-4 py-2">
+            Powiadomienie
+          </div>
+          <div
+            class="border border-t-0 border-blue-400 rounded-b bg-blue-100 px-4 py-3 text-black-700"
+          >
+            <p>{{ $message }}</p>
+          </div>
+        </div>
+      </div>
+    @endif
     @if ($message = Session::get('danger'))
     <div class="p-5">
       <div role="alert">
@@ -87,15 +101,19 @@
     <div class="mx-auto p-4 pt-0">
         <table class="shadow-lg bg-white mx-auto w-full shadow-lg">
             <tr>
-              <th class="bg-blue-100 border text-left px-8 py-4">#</th>
-              <th class="bg-blue-100 border text-left px-8 py-4">Tytuł</th>
-              <th class="bg-blue-100 border text-left px-8 py-4">Opis</th>
-              <th class="bg-blue-100 border text-left px-8 py-4">Dodano</th>
-              <th class="bg-blue-100 border text-left px-8 py-4">Ukończono</th>
-              <th class="bg-blue-100 border text-left px-8 py-4">Akcje</th>
+              <th class="bg-blue-200 border text-left px-8 py-4">#</th>
+              <th class="bg-blue-200 border text-left px-8 py-4">Tytuł</th>
+              <th class="bg-blue-200 border text-left px-8 py-4">Opis</th>
+              <th class="bg-blue-200 border text-left px-8 py-4">Dodano</th>
+              <th class="bg-blue-200 border text-left px-8 py-4">Ukończono</th>
+              <th class="bg-blue-200 border text-left px-8 py-4">Akcje</th>
             </tr>
             @foreach ($tasks as $task)
-            <tr>
+            @if ($task->is_completed != 'yes')
+                <tr class="bg-yellow-200">
+            @else
+                <tr>
+            @endif
                 <td class="border px-8 py-4">{{$task->id}}</td>
                 <td class="border px-8 py-4">{{$task->title}}</td>
                 <td class="border px-8 py-4" style="text-align: justify">{{$task->body}}</td>

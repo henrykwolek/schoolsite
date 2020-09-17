@@ -104,6 +104,22 @@
             Zapisz zmiany
           </button>
         </form>
+        <br>
+        <p class="text-lg">Usuwanie ogłoszenia</p>
+        <hr class="mb-2">
+        @if ($post->user->id == Auth::user()->id)
+        <form action="{{route('admin-post-destroy', $post)}}" method="post">
+          @csrf 
+          @method('DELETE')
+          <button
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            type="submit"
+          >
+            Usuń post
+          </button>
+        </form>
+        <p class="text-red-500">Uwaga! Ta czynnośc jest nieodwracalna.</p>
+      @endif     
       </div>
     </div>
   </div>

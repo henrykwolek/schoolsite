@@ -157,11 +157,7 @@
             <td class="text-center">{{$post->id}}</td>
             <td class="text-center">
               <a
-                @if (Auth::user()->id == $post->user->id)
-                  href="{{route('admin-post-edit', $post)}}"
-                @else
-                  href="{{route('admin-post-detail', $post)}}"
-                @endif
+              href="{{route('admin-post-detail', $post)}}"
                 class="no-underline hover:underline text-blue-500"
                 >{{$post->title}}</a
               >
@@ -175,16 +171,11 @@
             <td class="text-center">{{$post->user->name}}</td>
             <td class="text-center">
               @if ($post->user->id == Auth::user()->id)
-                <form action="{{route('admin-post-destroy', $post)}}" method="post">
-                  @csrf 
-                  @method('DELETE')
-                  <button
-                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    type="submit"
-                  >
-                    Usuń post
-                  </button>
-                </form>
+              <a href="{{route('admin-post-edit', $post)}}">
+                <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >Edytuj post</button>
+              </a>
               @else
                 <p class="text-red-500 font-bold">Brak dostępnych akcji</p>
               @endif
