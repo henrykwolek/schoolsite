@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Task;
+use App\User;
 use Auth;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -31,5 +32,13 @@ class TaskController extends Controller
     return redirect()
       ->route('task-index')
       ->with('success', 'Dodano zadanie.');
+  }
+
+  public function complete(Task $task)
+  {
+    DB::update(
+      'update tasks set completed_by = ?, is_completed = ? where id = ?',
+      [Auth::user()->name, 'yes', $task->id]
+    );
   }
 }

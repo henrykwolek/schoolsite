@@ -70,8 +70,22 @@
       </div>
     </div>
     @endif
+    @if ($message = Session::get('danger'))
+    <div class="p-5">
+      <div role="alert">
+        <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+          Powiadomienie
+        </div>
+        <div
+          class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-black-700"
+        >
+          <p>{{ $message }}</p>
+        </div>
+      </div>
+    </div>
+    @endif
     <div class="mx-auto p-4 pt-0">
-        <table class="shadow-lg bg-white mx-auto w-full">
+        <table class="shadow-lg bg-white mx-auto w-full shadow-lg">
             <tr>
               <th class="bg-blue-100 border text-left px-8 py-4">#</th>
               <th class="bg-blue-100 border text-left px-8 py-4">Tytuł</th>
@@ -85,18 +99,25 @@
                 <td class="border px-8 py-4">{{$task->id}}</td>
                 <td class="border px-8 py-4">{{$task->title}}</td>
                 <td class="border px-8 py-4" style="text-align: justify">{{$task->body}}</td>
-                <td class="border px-8 py-4">{{$task->created_at->diffForHumans()}}</td>
+                <td class="border px-8 py-4">{{$task->user->name}}, {{$task->created_at->diffForHumans()}}</td>
                 <td class="border px-8 py-4 text-center">
                     @if ($task->is_completed == 'yes')
-                        {{$task->completed_by}}, {{$task->updated_at}}
+                     <p class="font-bold text-green-500">Tak</p>
                     @else
                         <p class="font-bold text-red-500">Nie</p>
                     @endif
                 </td>
                 <td class="border px-8 py-4">
-                    <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                        Oznacz jako ukończone
-                      </button>
+                    @if ($task->is_completed == 'yes')
+                        {{$task->completed_by}}, {{$task->updated_at}}
+                    @else
+                    <form action="{{route('task-complete', $task)}}" method="post">
+                        @csrf
+                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                            Oznacz jako ukończone
+                        </button>
+                    </form>
+                    @endif
                 </td>
             </tr>
             @endforeach

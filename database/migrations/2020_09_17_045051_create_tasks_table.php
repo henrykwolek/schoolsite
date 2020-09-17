@@ -21,7 +21,7 @@ class CreateTasksTable extends Migration
         ->onDelete('cascade');
       $table->string('title');
       $table->text('body');
-      $table->boolean('is_completed')->nullable();
+      $table->string('is_completed')->nullable();
       $table->string('completed_by')->nullable();
       $table->timestamps();
     });

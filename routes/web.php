@@ -76,6 +76,10 @@ Route::middleware('auth')->group(function () {
     ->name('task-create')
     ->middleware('is_admin');
 
+  Route::post('redakcja/zadania/{task}/complete', 'TaskController@complete')
+    ->name('task-complete')
+    ->middleware('is_admin');
+
   Route::get(
     'logout',
     '\App\Http\Controllers\Auth\LoginController@logout'
