@@ -4,11 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      @if (Auth::check())
-      Zalogowano
-      @else
-      Nie zalogowano
-      @endif
+      @if (Auth::check()) Zalogowano @else Nie zalogowano @endif
     </title>
     <meta name="author" content="David Grzyb" />
     <meta name="description" content="" />
@@ -47,7 +43,7 @@
       <div class="flex flex-col items-center py-12">
         <a
           class="font-bold text-gray-800 uppercase hover:text-gray-700 text-3xl"
-          href="#"
+          href="{{route('home')}}"
         >
           II Liceum Ogólnokształcące
         </a>

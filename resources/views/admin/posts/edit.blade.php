@@ -29,11 +29,11 @@
         </div>
         <form
           class="mb-4"
-          action="{{route('admin-post-store')}}"
+          action="{{route('admin-post-update', $post)}}"
           method="post"
           enctype="multipart/form-data"
         >
-          @csrf
+          @csrf @method('PUT')
           <div class="flex flex-col mb-4">
             <label class="mb-2 font-bold text-lg text-grey-darkest" for="title"
               >Nowy tytuł</label
@@ -90,7 +90,8 @@
               class="appearance-none shadow block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               name="body"
               id="body"
-            >{{$post->body}}</textarea>
+              >{{$post->body}}</textarea
+            >
             @error('body')
             <p class="text-red-500 text-s mt-4">
               {{ $message }}
@@ -104,13 +105,12 @@
             Zapisz zmiany
           </button>
         </form>
-        <br>
+        <br />
         <p class="text-lg">Usuwanie ogłoszenia</p>
-        <hr class="mb-2">
+        <hr class="mb-2" />
         @if ($post->user->id == Auth::user()->id)
         <form action="{{route('admin-post-destroy', $post)}}" method="post">
-          @csrf 
-          @method('DELETE')
+          @csrf @method('DELETE')
           <button
             class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             type="submit"
@@ -119,7 +119,7 @@
           </button>
         </form>
         <p class="text-red-500">Uwaga! Ta czynnośc jest nieodwracalna.</p>
-      @endif     
+        @endif
       </div>
     </div>
   </div>

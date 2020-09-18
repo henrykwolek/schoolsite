@@ -106,7 +106,7 @@
 
     <x-admin-sidebar-menu></x-admin-sidebar-menu>
     @yield('admin-main-content') @yield('admin-posts-layout')
-    @yield('post-create')
+    @yield('post-create') @yield('user-index')
     <hr />
     <script>
       /*Toggle dropdown list*/

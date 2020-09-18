@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Task;
+use App\Post;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -16,18 +20,35 @@ class HomeController extends Controller
     //$this->middleware('auth');
   }
 
+  public function viewPost(Post $post)
+  {
+    return view('post-home', [
+      'post' => $post,
+    ]);
+  }
+
   /**
    * Show the application dashboard.
    *
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Post $posts)
   {
-    return view('home');
+    $posts = Post::orderBy('id', 'DESC')->simplepaginate(5);
+    return view('home', [
+      'posts' => $posts,
+    ]);
   }
 
-  public function admin()
+  public function admin(Task $tasks, User $usesr, Post $posts)
   {
-    return view('admin.dashboard');
+    $tasks = Task::orderBy('id', 'DESC')->paginate(5);
+    $users = User::orderBy('id', 'DESC')->paginate(5);
+    $posts = Post::orderBy('id', 'DESC')->paginate(5);
+    return view('admin.dashboard', [
+      'tasks' => $tasks,
+      'users' => $users,
+      'posts' => $posts,
+    ]);
   }
 }

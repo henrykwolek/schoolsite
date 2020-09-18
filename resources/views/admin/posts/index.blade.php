@@ -96,8 +96,7 @@
         </div>
       </div>
     </div>
-    @endif
-    @if ($message = Session::get('warning'))
+    @endif @if ($message = Session::get('warning'))
     <div class="p-5">
       <div role="alert">
         <div class="bg-yellow-500 text-white font-bold rounded-t px-4 py-2">
@@ -110,8 +109,7 @@
         </div>
       </div>
     </div>
-    @endif
-    @if ($message = Session::get('danger'))
+    @endif @if ($message = Session::get('danger'))
     <div class="p-5">
       <div role="alert">
         <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
@@ -157,7 +155,7 @@
             <td class="text-center">{{$post->id}}</td>
             <td class="text-center">
               <a
-              href="{{route('admin-post-detail', $post)}}"
+                href="{{route('admin-post-detail', $post)}}"
                 class="no-underline hover:underline text-blue-500"
                 >{{$post->title}}</a
               >
@@ -173,11 +171,13 @@
               @if ($post->user->id == Auth::user()->id)
               <a href="{{route('admin-post-edit', $post)}}">
                 <button
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  >Edytuj post</button>
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Edytuj post
+                </button>
               </a>
               @else
-                <p class="text-red-500 font-bold">Brak dostępnych akcji</p>
+              <p class="text-red-500 font-bold">Brak dostępnych akcji</p>
               @endif
             </td>
           </tr>

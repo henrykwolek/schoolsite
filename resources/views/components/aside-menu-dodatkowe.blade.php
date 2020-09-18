@@ -58,7 +58,9 @@
         >
       </li>
       <li class="w-1/2 overflow-hidden">
-        <a href="{{route('admin-index')}}" class="no-underline hover:underline text-blue-500"
+        <a
+          href="{{route('admin-index')}}"
+          class="no-underline hover:underline text-blue-500"
           >Redakcja serwisu</a
         >
       </li>

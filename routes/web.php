@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/ogloszenie/{post}', 'HomeController@viewPost')->name('post-home');
 
 Auth::routes();
 
@@ -38,7 +39,7 @@ Route::middleware('auth')->group(function () {
     ->name('admin-post-edit')
     ->middleware('is_admin');
 
-  Route::post('redakcja/posty/edytuj/{post}/zapisz', 'PostController@update')
+  Route::put('redakcja/posty/edytuj/{post}/zapisz', 'PostController@update')
     ->name('admin-post-update')
     ->middleware('is_admin');
 
@@ -78,6 +79,10 @@ Route::middleware('auth')->group(function () {
 
   Route::post('redakcja/zadania/{task}/complete', 'TaskController@complete')
     ->name('task-complete')
+    ->middleware('is_admin');
+
+  Route::get('redakcja/uzytkownicy', 'UsersController@index')
+    ->name('admin-user-index')
     ->middleware('is_admin');
 
   Route::get(

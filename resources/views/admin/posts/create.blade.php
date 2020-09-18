@@ -12,7 +12,7 @@
           method="post"
           enctype="multipart/form-data"
         >
-        @csrf
+          @csrf
           <div class="flex flex-col mb-4">
             <label class="mb-2 font-bold text-lg text-grey-darkest" for="title"
               >Tytuł</label
@@ -69,16 +69,15 @@
             @enderror
           </div>
           <div class="flex flex-col mb-6">
-            <label
-              class="mb-2 font-bold text-lg text-grey-darkest"
-              for="body"
+            <label class="mb-2 font-bold text-lg text-grey-darkest" for="body"
               >Treść</label
             >
             <textarea
               placeholder="Opis"
               class="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
               name="body"
-              id="body"></textarea>
+              id="body"
+            ></textarea>
             @error('body')
             <p class="text-red-500 text-s mt-4">
               {{ $message }}
